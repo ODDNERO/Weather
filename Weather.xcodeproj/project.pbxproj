@@ -16,7 +16,9 @@
 		CEE022F02C3EF41900208A8A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022EF2C3EF41900208A8A /* BaseView.swift */; };
 		CEE022F32C3EF61200208A8A /* IdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022F22C3EF61200208A8A /* IdentifierProtocol.swift */; };
 		CEE022F52C3EF67E00208A8A /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022F42C3EF67E00208A8A /* Observable.swift */; };
+		CEE022F72C3EF77500208A8A /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022F62C3EF77500208A8A /* WeatherView.swift */; };
 		CEE022FA2C3EF84A00208A8A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CEE022F92C3EF84A00208A8A /* Alamofire */; };
+		CEE022FD2C3EFAEE00208A8A /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022FC2C3EFAEE00208A8A /* APIRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		CEE022EF2C3EF41900208A8A /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		CEE022F22C3EF61200208A8A /* IdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierProtocol.swift; sourceTree = "<group>"; };
 		CEE022F42C3EF67E00208A8A /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		CEE022F62C3EF77500208A8A /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
+		CEE022FC2C3EFAEE00208A8A /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 			children = (
 				CEE022EC2C3EE60E00208A8A /* App */,
 				CEE022F12C3EF5F000208A8A /* Util */,
+				CEE022FB2C3EFA9D00208A8A /* Network */,
 				CEE022EB2C3EE60400208A8A /* Base */,
 				CEE022EA2C3EE5F500208A8A /* Main */,
 				CEE022DF2C3ED7AE00208A8A /* Assets.xcassets */,
@@ -79,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				CEE022DA2C3ED7AC00208A8A /* WeatherViewController.swift */,
+				CEE022F62C3EF77500208A8A /* WeatherView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -108,6 +114,14 @@
 				CEE022F42C3EF67E00208A8A /* Observable.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		CEE022FB2C3EFA9D00208A8A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				CEE022FC2C3EFAEE00208A8A /* APIRouter.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,12 +201,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEE022DB2C3ED7AC00208A8A /* WeatherViewController.swift in Sources */,
+				CEE022FD2C3EFAEE00208A8A /* APIRouter.swift in Sources */,
 				CEE022EE2C3EE66B00208A8A /* BaseViewController.swift in Sources */,
 				CEE022F02C3EF41900208A8A /* BaseView.swift in Sources */,
 				CEE022F52C3EF67E00208A8A /* Observable.swift in Sources */,
 				CEE022D72C3ED7AC00208A8A /* AppDelegate.swift in Sources */,
 				CEE022F32C3EF61200208A8A /* IdentifierProtocol.swift in Sources */,
 				CEE022D92C3ED7AC00208A8A /* SceneDelegate.swift in Sources */,
+				CEE022F72C3EF77500208A8A /* WeatherView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
