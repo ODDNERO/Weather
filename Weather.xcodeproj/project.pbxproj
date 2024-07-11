@@ -20,6 +20,7 @@
 		CEE022FA2C3EF84A00208A8A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CEE022F92C3EF84A00208A8A /* Alamofire */; };
 		CEE022FD2C3EFAEE00208A8A /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022FC2C3EFAEE00208A8A /* APIRouter.swift */; };
 		CEE022FF2C3F573300208A8A /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022FE2C3F573300208A8A /* APIKey.swift */; };
+		CEE0230F2C3FFF2B00208A8A /* CityList.json in Resources */ = {isa = PBXBuildFile; fileRef = CEE0230E2C3FFF2B00208A8A /* CityList.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		CEE022F62C3EF77500208A8A /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		CEE022FC2C3EFAEE00208A8A /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		CEE022FE2C3F573300208A8A /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		CEE0230E2C3FFF2B00208A8A /* CityList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CityList.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +77,7 @@
 				CEE022FB2C3EFA9D00208A8A /* Network */,
 				CEE022EB2C3EE60400208A8A /* Base */,
 				CEE022EA2C3EE5F500208A8A /* Main */,
-				CEE022DF2C3ED7AE00208A8A /* Assets.xcassets */,
-				CEE022E12C3ED7AE00208A8A /* LaunchScreen.storyboard */,
-				CEE022E42C3ED7AE00208A8A /* Info.plist */,
+				CEE023102C3FFF7600208A8A /* Resource */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -125,6 +125,16 @@
 				CEE022FC2C3EFAEE00208A8A /* APIRouter.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		CEE023102C3FFF7600208A8A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				CEE0230E2C3FFF2B00208A8A /* CityList.json */,
+				CEE022DF2C3ED7AE00208A8A /* Assets.xcassets */,
+				CEE022E42C3ED7AE00208A8A /* Info.plist */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEE022E02C3ED7AE00208A8A /* Assets.xcassets in Resources */,
+				CEE0230F2C3FFF2B00208A8A /* CityList.json in Resources */,
 				CEE022E32C3ED7AE00208A8A /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
