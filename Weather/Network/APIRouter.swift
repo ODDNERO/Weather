@@ -8,15 +8,11 @@
 import Alamofire
 import Foundation
 
-final class APIRouter: URLRequestConvertible {
-    func asURLRequest() throws -> URLRequest {
-        <#code#>
-    }
-    
+final class APIRouter {
     enum WeatherRequest {
         case current(cityID: Int)
         case forecast(cityID: Int)
-        case icon
+        case icon(city: String)
         
         private var baseURL: String {
             return "https://api.openweathermap.org/data/"
@@ -28,35 +24,29 @@ final class APIRouter: URLRequestConvertible {
         var endpoint: URL {
             switch self {
             case .current(cityID: let cityID):
-                URL(string: baseURL + APIVersion + "weather")
+                URL(string: baseURL + APIVersion + "weather")!
             case .forecast(cityID: let cityID):
-                URL(string: baseURL + APIVersion + "forecast")
+                URL(string: baseURL + APIVersion + "forecast")!
             case .icon:
-                URL(string: baseURL + APIVersion + "weather")
-            }
-            
-            var method: HTTPMethod {
-                return .get
-            }
-            
-            var header: HTTPHeaders {
-                return
-            }
-            
-            var parameter: Parameters {
-                switch self {
-                case .current(cityID: let cityID):
-                    <#code#>
-                case .forecast(cityID: let cityID):
-                    <#code#>
-                case .icon:
-                    <#code#>
-                }
+                URL(string: baseURL + APIVersion + "weather")!
             }
         }
-    }
-    
-    func asURLRequest() throws -> URLRequest {
-        <#code#>
+        
+        var method: HTTPMethod {
+            return .get
+        }
+        
+//        var header: HTTPHeaders {
+//            return
+//        }
+        
+        var parameter: Parameters {
+            switch self {
+            case .current(cityID: let cityID), .forecast(cityID: let cityID):
+                ["id": cityID, "appid": WeatherAPI.key, "lang": "kr"]
+            case .icon(city: let city):
+                ["q": city]
+            }
+        }
     }
 }
