@@ -12,7 +12,6 @@ final class APIRouter {
     enum WeatherRequest {
         case current(cityID: Int)
         case forecast(cityID: Int)
-        case icon(city: String)
         
         private var baseURL: String {
             return "https://api.openweathermap.org/data/"
@@ -23,12 +22,10 @@ final class APIRouter {
         
         var endpoint: URL {
             switch self {
-            case .current(cityID: let cityID):
+            case .current:
                 URL(string: baseURL + APIVersion + "weather")!
-            case .forecast(cityID: let cityID):
+            case .forecast:
                 URL(string: baseURL + APIVersion + "forecast")!
-            case .icon:
-                URL(string: baseURL + APIVersion + "weather")!
             }
         }
         
@@ -36,16 +33,10 @@ final class APIRouter {
             return .get
         }
         
-//        var header: HTTPHeaders {
-//            return
-//        }
-        
         var parameter: Parameters {
             switch self {
             case .current(cityID: let cityID), .forecast(cityID: let cityID):
                 ["id": cityID, "appid": WeatherAPI.key, "lang": "kr"]
-            case .icon(city: let city):
-                ["q": city]
             }
         }
     }
