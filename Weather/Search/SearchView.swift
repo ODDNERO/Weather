@@ -20,4 +20,8 @@ final class SearchView: BaseView {
     
     override func configureView() {
     }
+    
+    func setupBackgroundColor() {
+        self.backgroundColor = viewColor
+    }
 }
