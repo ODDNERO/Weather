@@ -1,13 +1,15 @@
 //
-//  WeatherView.swift
+//  SearchView.swift
 //  Weather
 //
-//  Created by NERO on 7/10/24.
+//  Created by NERO on 7/12/24.
 //
 
 import UIKit
 
-final class WeatherView: BaseView {
+final class SearchView: BaseView {
+    var viewColor: UIColor?
+    
     override func configureHierarchy() {
         
     }
@@ -17,6 +19,5 @@ final class WeatherView: BaseView {
     }
     
     override func configureView() {
-        self.backgroundColor = .systemCyan //임시
     }
 }
