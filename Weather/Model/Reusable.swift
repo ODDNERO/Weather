@@ -26,3 +26,12 @@ struct WindInfo: Decodable {
     let speed: Double
     let gust: Double?
 }
+
+struct WeatherDetail: Decodable {
+    let temp: Double
+    let feels_like: Double
+    let temp_min: Double
+    let temp_max: Double
+    let pressure: Int
+    let humidity: Int
+}

@@ -35,7 +35,7 @@ enum APIRouter {
     var parameter: Parameters {
         switch self {
         case .current(cityID: let cityID), .forecast(cityID: let cityID):
-            ["id": cityID, "appid": WeatherAPI.key, "lang": "kr"]
+            ["id": cityID, "appid": WeatherAPI.key] //"lang": "kr"
         }
     }
 }
