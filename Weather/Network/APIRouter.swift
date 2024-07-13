@@ -8,7 +8,6 @@
 import Alamofire
 import Foundation
 
-
 enum APIRouter {
     case current(cityID: Int)
     case forecast(cityID: Int)

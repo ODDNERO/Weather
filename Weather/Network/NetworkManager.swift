@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 class NetworkManager {
-    func requestAPI<T: Decodable>(_ API: APIRouter, completionHandler: @escaping (T?) -> Void) {
+    static func requestAPI<T: Decodable>(_ API: APIRouter, completionHandler: @escaping (T?) -> Void) {
         AF.request(API.endpoint,
                    method: API.method,
                    parameters: API.parameter,
