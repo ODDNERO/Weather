@@ -8,7 +8,6 @@
 import UIKit
 
 final class SearchView: BaseView {
-    var viewColor: UIColor?
     
     override func configureHierarchy() {
         
@@ -19,9 +18,12 @@ final class SearchView: BaseView {
     }
     
     override func configureView() {
+        
     }
-    
-    func setupBackgroundColor() {
-        self.backgroundColor = viewColor
+}
+
+extension SearchView {
+    func setupBackgroundColor(_ color: UIColor) {
+        self.backgroundColor = color
     }
 }

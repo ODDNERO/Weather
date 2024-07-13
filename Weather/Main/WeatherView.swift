@@ -17,6 +17,12 @@ final class WeatherView: BaseView {
     }
     
     override func configureView() {
-        self.backgroundColor = .systemCyan //임시
+        
+    }
+}
+
+extension WeatherView {
+    func setupBackgroundColor(_ color: UIColor) {
+        self.backgroundColor = color
     }
 }
