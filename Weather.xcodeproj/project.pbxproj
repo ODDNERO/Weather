@@ -11,6 +11,8 @@
 		CEC1558A2C40FBAD0030B3C5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC155892C40FBAD0030B3C5 /* SearchViewController.swift */; };
 		CEC1558C2C40FBB80030B3C5 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1558B2C40FBB80030B3C5 /* SearchView.swift */; };
 		CEC1558F2C4106E40030B3C5 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1558E2C4106E40030B3C5 /* Icon.swift */; };
+		CEC155952C41492A0030B3C5 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC155942C41492A0030B3C5 /* CurrentWeather.swift */; };
+		CEC155982C4150410030B3C5 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC155972C4150410030B3C5 /* Reusable.swift */; };
 		CEE022D72C3ED7AC00208A8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022D62C3ED7AC00208A8A /* AppDelegate.swift */; };
 		CEE022D92C3ED7AC00208A8A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022D82C3ED7AC00208A8A /* SceneDelegate.swift */; };
 		CEE022DB2C3ED7AC00208A8A /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022DA2C3ED7AC00208A8A /* WeatherViewController.swift */; };
@@ -33,6 +35,8 @@
 		CEC155892C40FBAD0030B3C5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CEC1558B2C40FBB80030B3C5 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		CEC1558E2C4106E40030B3C5 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		CEC155942C41492A0030B3C5 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
+		CEC155972C4150410030B3C5 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		CEE022D32C3ED7AC00208A8A /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE022D62C3ED7AC00208A8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEE022D82C3ED7AC00208A8A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -172,7 +176,9 @@
 		CEE023112C40004E00208A8A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CEC155972C4150410030B3C5 /* Reusable.swift */,
 				CEE023122C40006B00208A8A /* City.swift */,
+				CEC155942C41492A0030B3C5 /* CurrentWeather.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -258,10 +264,12 @@
 				CEE022DB2C3ED7AC00208A8A /* WeatherViewController.swift in Sources */,
 				CEE022FD2C3EFAEE00208A8A /* APIRouter.swift in Sources */,
 				CEE022EE2C3EE66B00208A8A /* BaseViewController.swift in Sources */,
+				CEC155952C41492A0030B3C5 /* CurrentWeather.swift in Sources */,
 				CEE022F02C3EF41900208A8A /* BaseView.swift in Sources */,
 				CEC1558F2C4106E40030B3C5 /* Icon.swift in Sources */,
 				CEE022FF2C3F573300208A8A /* APIKey.swift in Sources */,
 				CEE022F52C3EF67E00208A8A /* Observable.swift in Sources */,
+				CEC155982C4150410030B3C5 /* Reusable.swift in Sources */,
 				CEE022D72C3ED7AC00208A8A /* AppDelegate.swift in Sources */,
 				CEC1558A2C40FBAD0030B3C5 /* SearchViewController.swift in Sources */,
 				CEE023132C40006B00208A8A /* City.swift in Sources */,

@@ -14,8 +14,3 @@ struct City: Decodable {
     let country: String
     let coord: Coordinate
 }
-
-struct Coordinate: Decodable {
-    let lon: Double
-    let lat: Double
-}
