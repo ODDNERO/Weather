@@ -12,6 +12,7 @@
 		CEC1558C2C40FBB80030B3C5 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1558B2C40FBB80030B3C5 /* SearchView.swift */; };
 		CEC1558F2C4106E40030B3C5 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1558E2C4106E40030B3C5 /* Icon.swift */; };
 		CEC155912C41343D0030B3C5 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC155902C41343D0030B3C5 /* WeatherViewModel.swift */; };
+		CEC155932C4134970030B3C5 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC155922C4134970030B3C5 /* SearchViewModel.swift */; };
 		CEC155952C41492A0030B3C5 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC155942C41492A0030B3C5 /* CurrentWeather.swift */; };
 		CEC155982C4150410030B3C5 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC155972C4150410030B3C5 /* Reusable.swift */; };
 		CEC1559A2C42667E0030B3C5 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC155992C42667E0030B3C5 /* WeatherCondition.swift */; };
@@ -38,6 +39,7 @@
 		CEC1558B2C40FBB80030B3C5 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		CEC1558E2C4106E40030B3C5 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		CEC155902C41343D0030B3C5 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		CEC155922C4134970030B3C5 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		CEC155942C41492A0030B3C5 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		CEC155972C4150410030B3C5 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		CEC155992C42667E0030B3C5 /* WeatherCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			children = (
 				CEC1558B2C40FBB80030B3C5 /* SearchView.swift */,
 				CEC155892C40FBAD0030B3C5 /* SearchViewController.swift */,
+				CEC155922C4134970030B3C5 /* SearchViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				CEC1558C2C40FBB80030B3C5 /* SearchView.swift in Sources */,
 				CEE022F32C3EF61200208A8A /* IdentifierProtocol.swift in Sources */,
 				CEC155912C41343D0030B3C5 /* WeatherViewModel.swift in Sources */,
+				CEC155932C4134970030B3C5 /* SearchViewModel.swift in Sources */,
 				CEE022D92C3ED7AC00208A8A /* SceneDelegate.swift in Sources */,
 				CEE022F72C3EF77500208A8A /* WeatherView.swift in Sources */,
 			);

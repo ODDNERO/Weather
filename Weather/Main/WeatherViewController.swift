@@ -40,8 +40,8 @@ extension WeatherViewController {
     }
     
     @objc private func listButtonClicked() {
-        searchVC.contentView.viewColor = self.contentView.backgroundColor //임시
         let searchVC = SearchViewController(viewModel: SearchViewModel())
+        searchVC.viewModel.viewColor = self.contentView.backgroundColor //임시
         navigationController?.pushViewController(searchVC, animated: true)
     }
 }

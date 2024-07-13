@@ -15,7 +15,6 @@ final class SearchViewController: BaseViewController<SearchView, SearchViewModel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.contentView.setupBackgroundColor()
     }
     
     override func setupNavigationBar() {
@@ -26,6 +25,10 @@ final class SearchViewController: BaseViewController<SearchView, SearchViewModel
     
     override func setupToolBar() {
         navigationController?.toolbar.isHidden = true
+    }
+    
+    override func bindViewModel() {
+        self.contentView.setupBackgroundColor(self.viewModel.viewColor!)
     }
 }
 
