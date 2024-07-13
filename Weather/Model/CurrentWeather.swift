@@ -17,12 +17,6 @@ struct CurrentWeather: Decodable {
     let name: String
 }
 
-struct WeatherInfo: Decodable {
-    let main: String
-    let description: String
-    let icon: String
-}
-
 struct WeatherDetail: Decodable {
     let temp: Double
     let feels_like: Double
@@ -30,13 +24,4 @@ struct WeatherDetail: Decodable {
     let temp_max: Double
     let pressure: Int
     let humidity: Int
-}
-
-struct WindInfo: Decodable {
-    let speed: Double
-    let gust: Double?
-}
-
-struct CloudInfo: Decodable {
-    let all: Int
 }
