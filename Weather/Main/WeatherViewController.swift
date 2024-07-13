@@ -22,10 +22,16 @@ final class WeatherViewController: BaseViewController<WeatherView, WeatherViewMo
         navigationController?.toolbar.isHidden = false
         setToolbarItems(setupToolBarButtons(), animated: true)
     }
+    
+    override func bindViewModel() {
+        self.viewModel.outputViewColor.bind { color in
+            self.contentView.setupBackgroundColor(color)
+        }
+    }
 }
 
 extension WeatherViewController {
-    func setupToolBarButtons() -> [UIBarButtonItem] {
+    private func setupToolBarButtons() -> [UIBarButtonItem] {
         let mapButton = UIBarButtonItem(image: UIBox.Icon.map, style: .plain, target: self, action: nil) //action 추가 필요
         let listButton = UIBarButtonItem(image: UIBox.Icon.list, style: .plain, target: self, action: #selector(listButtonClicked))
         
