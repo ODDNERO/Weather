@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class WeatherViewController: BaseViewController<WeatherView> {
+final class WeatherViewController: BaseViewController<WeatherView, WeatherViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()

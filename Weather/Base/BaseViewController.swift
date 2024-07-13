@@ -7,8 +7,19 @@
 
 import UIKit
 
-class BaseViewController<ContentView: UIView>: UIViewController {
+class BaseViewController<ContentView: UIView, ViewModel>: UIViewController {
     let contentView = ContentView()
+    var viewModel: ViewModel
+    
+    init(viewModel: ViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         self.view = contentView
@@ -18,7 +29,7 @@ class BaseViewController<ContentView: UIView>: UIViewController {
         super.viewDidLoad()
         addEventHandler()
         setupDelegate()
-        bindData()
+        bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,5 +54,5 @@ class BaseViewController<ContentView: UIView>: UIViewController {
     
     func addEventHandler() {}
     func setupDelegate() {}
-    func bindData() {}
+    func bindViewModel() {}
 }
