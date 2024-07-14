@@ -11,6 +11,7 @@ import Foundation
 enum APIRouter {
     case current(cityID: Int)
     case forecast(cityID: Int)
+    case daily(cityID: Int)
     
     private var baseURL: String {
         return "https://api.openweathermap.org/data/"
@@ -25,6 +26,8 @@ enum APIRouter {
             URL(string: baseURL + APIVersion + "weather")!
         case .forecast:
             URL(string: baseURL + APIVersion + "forecast")!
+        case .daily:
+            URL(string: baseURL + APIVersion + "forecast/daily")!
         }
     }
     
@@ -36,7 +39,8 @@ enum APIRouter {
         switch self {
         case .current(cityID: let cityID), .forecast(cityID: let cityID):
             ["id": cityID, "appid": WeatherAPI.key] //"lang": "kr"
+        case .daily(cityID: let cityID):
+            ["id": cityID, "cnt": 5, "appid": WeatherAPI.key]
         }
     }
 }
-
