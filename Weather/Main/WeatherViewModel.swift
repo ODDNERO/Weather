@@ -8,17 +8,18 @@
 import UIKit
 
 final class WeatherViewModel {
-    var forecaseList: [ForecaseInfo] = []
     private var convertDate: (String) -> Date? = DateFormatter.convertKRDate
     private let inCelsius = -273.15
     private let threeDayRange = 0..<24
     
     var inputCityID: Observable<Int> = Observable(1835847) //default: 서울
-    var outputViewColor: Observable<UIColor> = Observable(.white)
-    
     var inputCountry: Observable<String> = Observable("KR")
     var inputState: Observable<String> = Observable("")
-    var outputForecaseTimeList: Observable<[String]> = Observable([])
+    
+    var outputViewColor: Observable<UIColor> = Observable(.white)
+    
+    var outputForecaseList: Observable<[ForecaseInfo]> = Observable([])
+    var outputHourList: Observable<[String]> = Observable([])
     var outputTempList: Observable<[String]> = Observable([])
     
     init() {
@@ -43,41 +44,40 @@ extension WeatherViewModel {
 extension WeatherViewModel {
     private func requestCurrentWeather(_ id: Int) {
         NetworkManager.requestAPI(APIRouter.current(cityID: id)) { (weather: CurrentWeather?) in
-            if let weather, let weatherInfo = weather.weather.first {
-                guard let weatherCondition = WeatherCondition.convertCase(condition: weatherInfo.main) else { return }
-                self.outputViewColor.value = weatherCondition.color
-            } else {
+            guard let weather, let weatherInfo = weather.weather.first else {
                 self.outputViewColor.value = .red
+                return
             }
+            guard let weatherCondition = WeatherCondition.convertCase(condition: weatherInfo.main) else { return }
+            self.outputViewColor.value = weatherCondition.color
         }
     }
     
     private func requestForecaseWeather(_ id: Int) {
         NetworkManager.requestAPI(APIRouter.forecast(cityID: id)) { (weather: ForecaseWeather?) in
-            guard let weather else { return }
-            guard !weather.list.isEmpty else { return }
-            var infoList = weather.list
+            guard let weather,!weather.list.isEmpty else { return }
+            let infoList = weather.list
             
-            infoList[self.threeDayRange].forEach { self.forecaseList.append($0) }
-            self.appendTimeList(self.convertDate)
+            infoList[self.threeDayRange].forEach { self.outputForecaseList.value.append($0) }
+            self.appendHourList(self.convertDate)
             self.appendTempList()
         }
     }
 }
 
 extension WeatherViewModel {
-    private func appendTimeList(_ convertDate: (String) -> Date?) {
+    private func appendHourList(_ convertDate: (String) -> Date?) {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(identifier: "UTC")!
-        forecaseList.forEach {
+        outputForecaseList.value.forEach {
             guard let date = convertDate($0.dt_txt) else { return }
             let hour = calendar.component(.hour, from: date)
-            outputForecaseTimeList.value.append("\(hour)시")
+            outputHourList.value.append("\(hour)시")
         }
     }
     
     private func appendTempList() {
-        forecaseList.forEach {
+        outputForecaseList.value.forEach {
             let temp = $0.main.temp + inCelsius
             outputTempList.value.append("\(Int(temp))°")
         }
