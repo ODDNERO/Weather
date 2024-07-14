@@ -11,6 +11,11 @@ final class WeatherViewModel {
     private var convertDate: (String) -> Date? = DateFormatter.convertKRDate
     private let inCelsius = -273.15
     private let threeDayRange = 0..<24
+    private let calendar = {
+       var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        return calendar
+    }()
     
     var inputCityID: Observable<Int> = Observable(1835847) //default: 서울
     var inputCountry: Observable<String> = Observable("KR")
@@ -22,8 +27,9 @@ final class WeatherViewModel {
     var outputHourList: Observable<[String]> = Observable([])
     var outputTempList: Observable<[String]> = Observable([])
     
-    var outputDailyList: Observable<[DailyInfo]> = Observable([])
-    var outputDayList: Observable<[String]> = Observable([])
+//    var outputDailyList: Observable<[DailyInfo]> = Observable([])
+    var outputDailyList: Observable<[[ForecaseInfo]]> = Observable([])
+    var outputWeekdayList: Observable<[String]> = Observable([])
     var outputMinMaxTempList: Observable<[(Int, Int)]> = Observable([])
     
     init() {
@@ -62,6 +68,14 @@ extension WeatherViewModel {
         NetworkManager.requestAPI(APIRouter.forecast(cityID: id)) { (weather: ForecaseWeather?) in
             guard let weather,!weather.list.isEmpty else { return }
             let infoList = weather.list
+            self.appendWeekdayList(infoList)
+            
+//            var copyInfoList = infoList.map { weatherInfo in
+//                var copy = weatherInfo
+//                guard let date = self.convertDate(copy.dt_txt) else { return copy }
+//                copy.dt_txt = String(date) //class, var로 변경하더라도 불가능한 시도
+//                return copy
+//            }
             
             infoList[self.threeDayRange].forEach { self.outputForecaseList.value.append($0) }
             self.appendHourList(self.convertDate)
@@ -69,24 +83,22 @@ extension WeatherViewModel {
         }
     }
     
-    private func requestDailyWeather(_ id: Int) {
-        NetworkManager.requestAPI(APIRouter.daily(cityID: id)) { (weather: DailyWeather?) in
-            guard let weather, !weather.list.isEmpty else { return }
-            let infoList = weather.list
-            infoList.forEach { self.outputDailyList.value.append($0) }
-            self.appendDayList()
-            self.appendMinMaxTempList()
-        }
-    }
+//    private func requestDailyWeather(_ id: Int) {
+//        NetworkManager.requestAPI(APIRouter.daily(cityID: id)) { (weather: DailyWeather?) in
+//            guard let weather, !weather.list.isEmpty else { return }
+//            let infoList = weather.list
+//            infoList.forEach { self.outputDailyList.value.append($0) }
+//            self.appendWeekdayList()
+//            self.appendMinMaxTempList()
+//        }
+//    }
 }
 
 extension WeatherViewModel {
     private func appendHourList(_ convertDate: (String) -> Date?) {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: "UTC")!
         outputForecaseList.value.forEach {
             guard let date = convertDate($0.dt_txt) else { return }
-            let hour = calendar.component(.hour, from: date)
+            let hour = self.calendar.component(.hour, from: date)
             outputHourList.value.append("\(hour)시")
         }
     }
@@ -98,20 +110,37 @@ extension WeatherViewModel {
         }
     }
     
-    private func appendDayList() {
-        outputDailyList.value.forEach {
-            let day = DateFormatter.convertDay(timeStamp: $0.dt)
-            outputDayList.value.append(day)
+    private func appendWeekdayList(_ weatherInfoList: [ForecaseInfo]) {
+        let maxLimit = 5
+        var stringSet: Set<String> = []
+        var sortedUniqueDateList: [Date] = []
+        
+        weatherInfoList.forEach {
+            guard let date = self.convertDate($0.dt_txt) else { return }
+            guard let timeInvalidatedDate = DateFormatter.convertDateFormat(date) else { return }
+            let dateString = DateFormatter.dateToFormattedString(timeInvalidatedDate)
+            stringSet.insert(dateString)
         }
-        print(outputDayList.value)
+        stringSet.forEach {
+            guard let uniqueDate = DateFormatter.stringToDate($0) else { return }
+            sortedUniqueDateList.append(uniqueDate)
+            sortedUniqueDateList.sort()
+        }
+        sortedUniqueDateList.forEach {
+            if self.outputWeekdayList.value.count < maxLimit {
+                let weekday = DateFormatter.dateToWeekday($0)
+                self.outputWeekdayList.value.append(weekday)
+            }
+        }
+        print(outputWeekdayList.value)
     }
     
     private func appendMinMaxTempList() {
-        outputDailyList.value.forEach {
-            let (min, max) = ($0.temp.min, $0.temp.max)
-            outputMinMaxTempList.value.append((Int(min), Int(max)))
-        }
-        print(outputMinMaxTempList.value)
+//        outputDailyList.value.forEach {
+//            let (min, max) = ($0.temp.min, $0.temp.max)
+//            outputMinMaxTempList.value.append((Int(min), Int(max)))
+//        }
+//        print(outputMinMaxTempList.value)
     }
 }
 
