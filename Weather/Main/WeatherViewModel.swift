@@ -16,6 +16,7 @@ final class WeatherViewModel {
     var inputCityID: Observable<Int> = Observable(1835847) //default: 서울
     var outputViewColor: Observable<UIColor> = Observable(.white)
     var outputForecaseTimeList: Observable<[String]> = Observable([])
+    var outputTempList: Observable<[String]> = Observable([])
     
     init() {
         transformData()
@@ -49,6 +50,7 @@ extension WeatherViewModel {
             
             infoList[self.threeDayRange].forEach { self.forecaseList.append($0) }
             self.appendTimeList(self.convertDate)
+            self.appendTempList()
         }
     }
 }
@@ -63,5 +65,11 @@ extension WeatherViewModel {
             outputForecaseTimeList.value.append("\(hour)시")
         }
     }
+    
+    private func appendTempList() {
+        forecaseList.forEach {
+            let temp = $0.main.temp + inCelsius
+            outputTempList.value.append("\(Int(temp))°")
+        }
     }
 }
