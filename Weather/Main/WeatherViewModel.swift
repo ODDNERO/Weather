@@ -22,6 +22,10 @@ final class WeatherViewModel {
     var outputHourList: Observable<[String]> = Observable([])
     var outputTempList: Observable<[String]> = Observable([])
     
+    var outputDailyList: Observable<[DailyInfo]> = Observable([])
+    var outputDayList: Observable<[String]> = Observable([])
+    var outputMinMaxTempList: Observable<[(Int, Int)]> = Observable([])
+    
     init() {
         transformData()
     }
@@ -32,6 +36,7 @@ extension WeatherViewModel {
         inputCityID.bind { cityID in
             self.requestCurrentWeather(cityID)
             self.requestForecaseWeather(cityID)
+//            self.requestDailyWeather(cityID)
         }
         
         inputCountry.bind { country in
@@ -63,6 +68,16 @@ extension WeatherViewModel {
             self.appendTempList()
         }
     }
+    
+    private func requestDailyWeather(_ id: Int) {
+        NetworkManager.requestAPI(APIRouter.daily(cityID: id)) { (weather: DailyWeather?) in
+            guard let weather, !weather.list.isEmpty else { return }
+            let infoList = weather.list
+            infoList.forEach { self.outputDailyList.value.append($0) }
+            self.appendDayList()
+            self.appendMinMaxTempList()
+        }
+    }
 }
 
 extension WeatherViewModel {
@@ -83,6 +98,24 @@ extension WeatherViewModel {
         }
     }
     
+    private func appendDayList() {
+        outputDailyList.value.forEach {
+            let day = DateFormatter.convertDay(timeStamp: $0.dt)
+            outputDayList.value.append(day)
+        }
+        print(outputDayList.value)
+    }
+    
+    private func appendMinMaxTempList() {
+        outputDailyList.value.forEach {
+            let (min, max) = ($0.temp.min, $0.temp.max)
+            outputMinMaxTempList.value.append((Int(min), Int(max)))
+        }
+        print(outputMinMaxTempList.value)
+    }
+}
+
+extension WeatherViewModel {
     private func setupConvertDate(_ country: Country) {
         switch country {
         case .KR:
