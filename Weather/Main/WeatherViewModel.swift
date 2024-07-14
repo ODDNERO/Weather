@@ -15,6 +15,9 @@ final class WeatherViewModel {
     
     var inputCityID: Observable<Int> = Observable(1835847) //default: 서울
     var outputViewColor: Observable<UIColor> = Observable(.white)
+    
+    var inputCountry: Observable<String> = Observable("KR")
+    var inputState: Observable<String> = Observable("")
     var outputForecaseTimeList: Observable<[String]> = Observable([])
     var outputTempList: Observable<[String]> = Observable([])
     
@@ -29,8 +32,15 @@ extension WeatherViewModel {
             self.requestCurrentWeather(cityID)
             self.requestForecaseWeather(cityID)
         }
+        
+        inputCountry.bind { country in
+            guard let country = Country.convertCase(country) else { return }
+            self.setupConvertDate(country)
+        }
     }
-    
+}
+ 
+extension WeatherViewModel {
     private func requestCurrentWeather(_ id: Int) {
         NetworkManager.requestAPI(APIRouter.current(cityID: id)) { (weather: CurrentWeather?) in
             if let weather, let weatherInfo = weather.weather.first {
@@ -70,6 +80,27 @@ extension WeatherViewModel {
         forecaseList.forEach {
             let temp = $0.main.temp + inCelsius
             outputTempList.value.append("\(Int(temp))°")
+        }
+    }
+    
+    private func setupConvertDate(_ country: Country) {
+        switch country {
+        case .KR:
+            self.convertDate = DateFormatter.convertKRDate
+        case .US:
+            self.inputState.bind { state in
+                guard let state = State.convertCase(state) else { return }
+                switch state {
+                case .TX:
+                    self.convertDate = DateFormatter.convertTXDate
+                case .CA:
+                    self.convertDate = DateFormatter.convertCADate
+                }
+            }
+        case .HK:
+            self.convertDate = DateFormatter.convertHKDate
+        case .JP:
+            self.convertDate = DateFormatter.convertJPDate
         }
     }
 }
