@@ -8,6 +8,16 @@
 import Foundation
 
 extension DateFormatter {
+    static func convertDay(timestamp: Int) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "E"
+        
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        let day = formatter.string(from: date)
+        return day
+    }
+    
     static func convertKRDate(_ date: String) -> Date? {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(identifier: "UTC")
