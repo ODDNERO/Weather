@@ -10,5 +10,20 @@ import UIKit
 final class SearchViewModel {
     var viewColor: UIColor? = .white
     
-    init() {}
+    var inputLoadViewTrigger: Observable<Void?> = Observable(nil)
+    var outputCityList: Observable<[City]> = Observable([])
+    
+    init() {
+        transformData()
+    }
+}
+
+extension SearchViewModel {
+    private func transformData() {
+        inputLoadViewTrigger.bind { _ in
+            guard let cityList = JSONParser.fetchBundleDataParsedModel("CityList", to: [City].self) else { return }
+            self.outputCityList.value = cityList
+            print(self.outputCityList.value)
+        }
+    }
 }

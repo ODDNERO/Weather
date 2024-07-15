@@ -9,6 +9,11 @@ import UIKit
 
 final class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
     
+    override func loadView() {
+        super.loadView()
+        self.viewModel.inputLoadViewTrigger.value = ()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
