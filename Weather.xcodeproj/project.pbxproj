@@ -35,6 +35,7 @@
 		CEE022FF2C3F573300208A8A /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE022FE2C3F573300208A8A /* APIKey.swift */; };
 		CEE0230F2C3FFF2B00208A8A /* CityList.json in Resources */ = {isa = PBXBuildFile; fileRef = CEE0230E2C3FFF2B00208A8A /* CityList.json */; };
 		CEE023132C40006B00208A8A /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE023122C40006B00208A8A /* City.swift */; };
+		CEEC453E2C45A63E002632B7 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC453D2C45A63E002632B7 /* JSONParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		CEE022FE2C3F573300208A8A /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		CEE0230E2C3FFF2B00208A8A /* CityList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CityList.json; sourceTree = "<group>"; };
 		CEE023122C40006B00208A8A /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		CEEC453D2C45A63E002632B7 /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 			children = (
 				CEC155A12C44243F0030B3C5 /* Extension */,
 				CEE022F42C3EF67E00208A8A /* Observable.swift */,
+				CEEC453D2C45A63E002632B7 /* JSONParser.swift */,
 				CEC155992C42667E0030B3C5 /* WeatherCondition.swift */,
 				CEC155A22C44246A0030B3C5 /* Country.swift */,
 			);
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC155A02C4383B40030B3C5 /* DateFormatter+.swift in Sources */,
+				CEEC453E2C45A63E002632B7 /* JSONParser.swift in Sources */,
 				CEC1559C2C428AC40030B3C5 /* ForecastWeather.swift in Sources */,
 				CEC155872C400FCB0030B3C5 /* NetworkManager.swift in Sources */,
 				CEE022DB2C3ED7AC00208A8A /* WeatherViewController.swift in Sources */,
