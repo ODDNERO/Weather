@@ -23,12 +23,12 @@ final class WeatherViewModel {
     
     var outputViewColor: Observable<UIColor> = Observable(.white)
     
-    var outputForecaseList: Observable<[ForecaseInfo]> = Observable([])
+    var outputForecastList: Observable<[ForecastInfo]> = Observable([])
     var outputHourList: Observable<[String]> = Observable([])
     var outputTempList: Observable<[String]> = Observable([])
     
 //    var outputDailyList: Observable<[DailyInfo]> = Observable([])
-    var outputDailyList: Observable<[[ForecaseInfo]]> = Observable([])
+    var outputDailyList: Observable<[[ForecastInfo]]> = Observable([])
     var outputWeekdayList: Observable<[String]> = Observable([])
     var outputMinMaxTempList: Observable<[(Int, Int)]> = Observable([])
     
@@ -41,7 +41,7 @@ extension WeatherViewModel {
     private func transformData() {
         inputCityID.bind { cityID in
             self.requestCurrentWeather(cityID)
-            self.requestForecaseWeather(cityID)
+            self.requestForecastWeather(cityID)
 //            self.requestDailyWeather(cityID)
         }
         
@@ -64,8 +64,8 @@ extension WeatherViewModel {
         }
     }
     
-    private func requestForecaseWeather(_ id: Int) {
-        NetworkManager.requestAPI(APIRouter.forecast(cityID: id)) { (weather: ForecaseWeather?) in
+    private func requestForecastWeather(_ id: Int) {
+        NetworkManager.requestAPI(APIRouter.forecast(cityID: id)) { (weather: ForecastWeather?) in
             guard let weather,!weather.list.isEmpty else { return }
             let infoList = weather.list
             self.appendWeekdayList(infoList)
@@ -77,7 +77,7 @@ extension WeatherViewModel {
 //                return copy
 //            }
             
-            infoList[self.threeDayRange].forEach { self.outputForecaseList.value.append($0) }
+            infoList[self.threeDayRange].forEach { self.outputForecastList.value.append($0) }
             self.appendHourList(self.convertDate)
             self.appendTempList()
         }
@@ -96,7 +96,7 @@ extension WeatherViewModel {
 
 extension WeatherViewModel {
     private func appendHourList(_ convertDate: (String) -> Date?) {
-        outputForecaseList.value.forEach {
+        outputForecastList.value.forEach {
             guard let date = convertDate($0.dt_txt) else { return }
             let hour = self.calendar.component(.hour, from: date)
             outputHourList.value.append("\(hour)시")
@@ -104,13 +104,13 @@ extension WeatherViewModel {
     }
     
     private func appendTempList() {
-        outputForecaseList.value.forEach {
+        outputForecastList.value.forEach {
             let temp = $0.main.temp + inCelsius
             outputTempList.value.append("\(Int(temp))°")
         }
     }
     
-    private func appendWeekdayList(_ weatherInfoList: [ForecaseInfo]) {
+    private func appendWeekdayList(_ weatherInfoList: [ForecastInfo]) {
         let maxLimit = 5
         var stringSet: Set<String> = []
         var sortedUniqueDateList: [Date] = []

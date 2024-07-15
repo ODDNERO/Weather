@@ -1,5 +1,5 @@
 //
-//  ForecaseWeather.swift
+//  ForecastWeather.swift
 //  Weather
 //
 //  Created by NERO on 7/13/24.
@@ -7,11 +7,12 @@
 
 import Foundation
 
-struct ForecaseWeather: Decodable {
-    let list: [ForecaseInfo]
+struct ForecastWeather: Decodable {
+    let list: [ForecastInfo]
 }
 
-struct ForecaseInfo: Decodable {
+struct ForecastInfo: Decodable {
+    let dt: Int
     let main: WeatherDetail
     let weather: [WeatherInfo]
     let clouds: CloudInfo
