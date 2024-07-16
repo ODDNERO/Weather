@@ -8,8 +8,9 @@
 import Foundation
 
 extension DateFormatter {
+    static private let formatter = DateFormatter()
+    
     static func convertDateFormat(_ date: Date) -> Date? {
-        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let convertedString = formatter.string(from: date)
         guard let convertedDate = formatter.date(from: convertedString) else { return nil }
@@ -17,20 +18,17 @@ extension DateFormatter {
     }
     
     static func dateToFormattedString(_ date: Date) -> String {
-        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: date)
     }
     
     static func stringToDate(_ string: String) -> Date? {
-        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         guard let convertedDate = formatter.date(from: string) else { return nil }
         return convertedDate
     }
     
     static func dateToWeekday(_ date: Date) -> String {
-        let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "E"
         let weekday = formatter.string(from: date)
@@ -50,7 +48,6 @@ extension DateFormatter {
 
 extension DateFormatter {
     static func convertKRDate(_ date: String) -> Date? {
-        let formatter = DateFormatter()
         formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         guard let UTCDate = formatter.date(from: date) else { return nil }
@@ -62,7 +59,6 @@ extension DateFormatter {
     }
     
     static func convertTXDate(_ date: String) -> Date? {
-        let formatter = DateFormatter()
         formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         guard let UTCDate = formatter.date(from: date) else { return nil }
@@ -74,7 +70,6 @@ extension DateFormatter {
     }
     
     static func convertCADate(_ date: String) -> Date? {
-        let formatter = DateFormatter()
         formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         guard let UTCDate = formatter.date(from: date) else { return nil }
@@ -86,7 +81,6 @@ extension DateFormatter {
     }
     
     static func convertHKDate(_ date: String) -> Date? {
-        let formatter = DateFormatter()
         formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         guard let UTCDate = formatter.date(from: date) else { return nil }
@@ -98,7 +92,6 @@ extension DateFormatter {
     }
     
     static func convertJPDate(_ date: String) -> Date? {
-        let formatter = DateFormatter()
         formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         guard let UTCDate = formatter.date(from: date) else { return nil }
