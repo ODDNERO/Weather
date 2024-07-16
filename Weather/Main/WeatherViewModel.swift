@@ -111,37 +111,27 @@ extension WeatherViewModel {
     }
     
     private func appendWeekdayList(_ weatherInfoList: [ForecastInfo]) {
+        var weekdayList = [String]()
         let maxLimit = 5
-        var stringSet: Set<String> = []
-        var sortedUniqueDateList: [Date] = []
-        
         weatherInfoList.forEach {
             guard let date = self.convertDate($0.dt_txt) else { return }
-            guard let timeInvalidatedDate = DateFormatter.convertDateFormat(date) else { return }
-            let dateString = DateFormatter.dateToFormattedString(timeInvalidatedDate)
-            stringSet.insert(dateString)
-        }
-        stringSet.forEach {
-            guard let uniqueDate = DateFormatter.stringToDate($0) else { return }
-            sortedUniqueDateList.append(uniqueDate)
-            sortedUniqueDateList.sort()
-        }
-        sortedUniqueDateList.forEach {
-            if self.outputWeekdayList.value.count < maxLimit {
-                let weekday = DateFormatter.dateToWeekday($0)
-                self.outputWeekdayList.value.append(weekday)
+            let weekday = DateFormatter.dateToWeekday(date)
+            if !(weekdayList.contains(weekday)) && (weekdayList.count < maxLimit) {
+                weekdayList.append(weekday)
             }
         }
+        weekdayList[0] = "오늘"
+        outputWeekdayList.value = weekdayList
         print(outputWeekdayList.value)
     }
-    
-    private func appendMinMaxTempList() {
+}
+
+private func appendMinMaxTempList() {
 //        outputDailyList.value.forEach {
 //            let (min, max) = ($0.temp.min, $0.temp.max)
 //            outputMinMaxTempList.value.append((Int(min), Int(max)))
 //        }
 //        print(outputMinMaxTempList.value)
-    }
 }
 
 extension WeatherViewModel {
