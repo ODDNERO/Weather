@@ -51,35 +51,38 @@ extension WeatherViewModel {
         }
     }
 }
- 
+
 extension WeatherViewModel {
     private func requestCurrentWeather(_ id: Int) {
-        NetworkManager.requestAPI(APIRouter.current(cityID: id)) { (weather: CurrentWeather?) in
-            guard let weather, let weatherInfo = weather.weather.first else {
+        NetworkManager.requestAPI(APIRouter.current(cityID: id)) { (response: Result<CurrentWeather, Error>) in
+            switch response {
+            case .success(let data):
+                guard let weatherInfo = data.weather.first else { return }
+                guard let weatherCondition = WeatherCondition.convertCase(condition: weatherInfo.main) else { return }
+                self.outputViewColor.value = weatherCondition.color
+                print(">>>>> Current API Success")
+            case .failure(let error):
                 self.outputViewColor.value = .red
-                return
+                print(">>>>> Current API Failure \n\(error) \n<<<<<")
             }
-            guard let weatherCondition = WeatherCondition.convertCase(condition: weatherInfo.main) else { return }
-            self.outputViewColor.value = weatherCondition.color
         }
     }
     
     private func requestForecastWeather(_ id: Int) {
-        NetworkManager.requestAPI(APIRouter.forecast(cityID: id)) { (weather: ForecastWeather?) in
-            guard let weather,!weather.list.isEmpty else { return }
-            let infoList = weather.list
-            self.appendWeekdayList(infoList)
-            
-//            var copyInfoList = infoList.map { weatherInfo in
-//                var copy = weatherInfo
-//                guard let date = self.convertDate(copy.dt_txt) else { return copy }
-//                copy.dt_txt = String(date) //class, var로 변경하더라도 불가능한 시도
-//                return copy
-//            }
-            
-            infoList[self.threeDayRange].forEach { self.outputForecastList.value.append($0) }
-            self.appendHourList(self.convertDate)
-            self.appendTempList()
+        NetworkManager.requestAPI(APIRouter.forecast(cityID: id)) { (response: Result<ForecastWeather, Error>) in
+            switch response {
+            case .success(let data):
+                guard !data.list.isEmpty else { return }
+                let weatherList = data.list
+                self.appendWeekdayList(weatherList)
+                weatherList[self.threeDayRange].forEach { self.outputForecastList.value.append($0) }
+                self.appendHourList(self.convertDate)
+                self.appendTempList()
+                print(">>>>> Forecast API Success")
+            case .failure(let error):
+                self.outputViewColor.value = .red
+                print(">>>>> Forecast API failure \n\(error) \n<<<<<")
+            }
         }
     }
     
@@ -122,16 +125,15 @@ extension WeatherViewModel {
         }
         weekdayList[0] = "오늘"
         outputWeekdayList.value = weekdayList
-        print(outputWeekdayList.value)
     }
-}
-
-private func appendMinMaxTempList() {
+    
+    private func appendMinMaxTempList() {
 //        outputDailyList.value.forEach {
 //            let (min, max) = ($0.temp.min, $0.temp.max)
 //            outputMinMaxTempList.value.append((Int(min), Int(max)))
 //        }
 //        print(outputMinMaxTempList.value)
+    }
 }
 
 extension WeatherViewModel {
