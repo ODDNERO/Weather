@@ -10,40 +10,12 @@ import Foundation
 extension DateFormatter {
     static private let formatter = DateFormatter()
     
-    static func convertDateFormat(_ date: Date) -> Date? {
-        formatter.dateFormat = "yyyy-MM-dd"
-        let convertedString = formatter.string(from: date)
-        guard let convertedDate = formatter.date(from: convertedString) else { return nil }
-        return convertedDate
-    }
-    
-    static func dateToFormattedString(_ date: Date) -> String {
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
-    }
-    
-    static func stringToDate(_ string: String) -> Date? {
-        formatter.dateFormat = "yyyy-MM-dd"
-        guard let convertedDate = formatter.date(from: string) else { return nil }
-        return convertedDate
-    }
-    
     static func dateToWeekday(_ date: Date) -> String {
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "E"
         let weekday = formatter.string(from: date)
         return weekday
     }
-    
-//    static func timestampToWeekday(timestamp: Int) -> String {
-//        let formatter = DateFormatter()
-//        formatter.locale = Locale(identifier: "ko_KR")
-//        formatter.dateFormat = "E"
-//        
-//        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
-//        let day = formatter.string(from: date)
-//        return day
-//    }
 }
 
 extension DateFormatter {
