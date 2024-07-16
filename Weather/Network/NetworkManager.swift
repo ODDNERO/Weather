@@ -9,7 +9,8 @@ import Foundation
 import Alamofire
 
 class NetworkManager {
-    static func requestAPI<T: Decodable>(_ API: APIRouter, completionHandler: @escaping (T?) -> Void) {
+    static func requestAPI<T: Decodable>(_ API: APIRouter,
+                                         completionHandler: @escaping (Result<T, Error>) -> Void) {
         AF.request(API.endpoint,
                    method: API.method,
                    parameters: API.parameter,
@@ -17,10 +18,9 @@ class NetworkManager {
         .responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let value):
-                completionHandler(value)
+                completionHandler(.success(value))
             case .failure(let error):
-                completionHandler(nil)
-                print(">>>>> \(API) failure \n\(error) \n<<<<<")
+                completionHandler(.failure(error))
             }
         }
     }
