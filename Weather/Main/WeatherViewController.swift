@@ -24,8 +24,8 @@ final class WeatherViewController: BaseViewController<WeatherView, WeatherViewMo
     }
     
     override func bindViewModel() {
-        self.viewModel.outputViewColor.bind { color in
-            self.contentView.setupBackgroundColor(color)
+        self.viewModel.outputViewColor.bind { [weak self] color in
+            self?.contentView.setupBackgroundColor(color)
         }
     }
 }

@@ -20,10 +20,10 @@ final class SearchViewModel {
 
 extension SearchViewModel {
     private func transformData() {
-        inputLoadViewTrigger.bind { _ in
+        inputLoadViewTrigger.bind { [weak self] _ in
             guard let cityList = JSONParser.fetchBundleDataParsedModel("CityList", to: [City].self) else { return }
-            self.outputCityList.value = cityList
-            print(self.outputCityList.value)
+            self?.outputCityList.value = cityList
+//            print(self.outputCityList.value)
         }
     }
 }

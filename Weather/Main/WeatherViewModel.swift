@@ -39,28 +39,29 @@ final class WeatherViewModel {
 
 extension WeatherViewModel {
     private func transformData() {
-        inputCityID.bind { cityID in
+        inputCityID.bind { [weak self] cityID in
+            guard let self else { return }
             self.requestCurrentWeather(cityID)
             self.requestForecastWeather(cityID)
 //            self.requestDailyWeather(cityID)
         }
         
-        inputCountry.bind { country in
+        inputCountry.bind { [weak self] country in
             guard let country = Country.convertCase(country) else { return }
-            self.setupConvertDate(country)
+            self?.setupConvertDate(country)
         }
     }
 }
 
 extension WeatherViewModel {
     private func requestCurrentWeather(_ id: Int) {
-        NetworkManager.requestAPI(APIRouter.current(cityID: id)) { (response: Result<CurrentWeather, Error>) in
+        NetworkManager.requestAPI(APIRouter.current(cityID: id)) { [weak self] (response: Result<CurrentWeather, Error>) in
+            guard let self else { return }
             switch response {
             case .success(let data):
                 guard let weatherInfo = data.weather.first else { return }
                 guard let weatherCondition = WeatherCondition.convertCase(condition: weatherInfo.main) else { return }
                 self.outputViewColor.value = weatherCondition.color
-                print(">>>>> Current API Success")
             case .failure(let error):
                 self.outputViewColor.value = .red
                 print(">>>>> Current API Failure \n\(error) \n<<<<<")
@@ -69,7 +70,8 @@ extension WeatherViewModel {
     }
     
     private func requestForecastWeather(_ id: Int) {
-        NetworkManager.requestAPI(APIRouter.forecast(cityID: id)) { (response: Result<ForecastWeather, Error>) in
+        NetworkManager.requestAPI(APIRouter.forecast(cityID: id)) { [weak self] (response: Result<ForecastWeather, Error>) in
+            guard let self else { return }
             switch response {
             case .success(let data):
                 guard !data.list.isEmpty else { return }
@@ -78,7 +80,6 @@ extension WeatherViewModel {
                 weatherList[self.threeDayRange].forEach { self.outputForecastList.value.append($0) }
                 self.appendHourList(self.convertDate)
                 self.appendTempList()
-                print(">>>>> Forecast API Success")
             case .failure(let error):
                 self.outputViewColor.value = .red
                 print(">>>>> Forecast API failure \n\(error) \n<<<<<")
@@ -101,7 +102,7 @@ extension WeatherViewModel {
     private func appendHourList(_ convertDate: (String) -> Date?) {
         outputForecastList.value.forEach {
             guard let date = convertDate($0.dt_txt) else { return }
-            let hour = self.calendar.component(.hour, from: date)
+            let hour = calendar.component(.hour, from: date)
             outputHourList.value.append("\(hour)시")
         }
     }
@@ -117,7 +118,7 @@ extension WeatherViewModel {
         var weekdayList = [String]()
         let maxLimit = 5
         weatherInfoList.forEach {
-            guard let date = self.convertDate($0.dt_txt) else { return }
+            guard let date = convertDate($0.dt_txt) else { return }
             let weekday = DateFormatter.dateToWeekday(date)
             if !(weekdayList.contains(weekday)) && (weekdayList.count < maxLimit) {
                 weekdayList.append(weekday)
@@ -140,15 +141,15 @@ extension WeatherViewModel {
     private func setupConvertDate(_ country: Country) {
         switch country {
         case .KR:
-            self.convertDate = DateFormatter.convertKRDate
+            convertDate = DateFormatter.convertKRDate
         case .US:
-            self.inputState.bind { state in
+            inputState.bind { [weak self] state in
                 guard let state = State.convertCase(state) else { return }
                 switch state {
                 case .TX:
-                    self.convertDate = DateFormatter.convertTXDate
+                    self?.convertDate = DateFormatter.convertTXDate
                 case .CA:
-                    self.convertDate = DateFormatter.convertCADate
+                    self?.convertDate = DateFormatter.convertCADate
                 }
             }
         case .HK:
