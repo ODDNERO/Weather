@@ -1,5 +1,5 @@
 //
-//  Coordinate.swift
+//  Common.swift
 //  Weather
 //
 //  Created by NERO on 7/12/24.
